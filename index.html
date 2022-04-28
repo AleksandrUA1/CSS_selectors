@@ -7,29 +7,227 @@
     </head>
     <body>
         <h1>Селекторы. Специфичность селекторов</h1>
-        <p>И так, существует 5 основных типов селекторов</p>
+        <p>
+            И так, существует 5 основных типов селекторов.<br>
+            Каждый селектор имеет свой приоритет (вес). И именно вес определяет, стили какого селектора будут применяться.<br>
+        </p>
         <table class="table">
             <tr>
-                <td>!important</td>
-                <td></td>
+                <td class="bold">!important</td>
+                <td>Устанавливает наиболее высокий приоритет стиля. Обращение происходит через атрибут !important</td>
             </tr>
             <tr>
-                <td>inline</td>
-                <td></td>
+                <td class="bold">inline</td>
+                <td>Задает стиль елементу, не обращаясь к CSS. Обращение происходит через атрибут style="..." в самом теге</td>
             </tr>
             <tr>
-                <td>id</td>
-                <td></td>
+                <td class="bold">id</td>
+                <td>Задает стиль елементу, путем присваивания селектора id"...". Повторение id недопустимо.</td>
             </tr>
             <tr>
-                <td>class</td>
-                <td></td>
+                <td class="bold">class</td>
+                <td>Задает стиль елементу, путем присваивания селектора class="...". Повториние class возможно в неограниченном колличестве.</td>
             </tr>
             <tr>
-                <td>tag</td>
-                <td></td>
+                <td class="bold">tag</td>
+                <td>Селектор по названию Тега. </td>
             </tr>
         </table>
-        
+        <h2>
+            Рассмотрим поведение селектора по названию тега.
+        </h2>
+        <p>
+            Этот абзац был создан с помощью тега (р). <br>
+            Тегу (р) через css применено свойство (color:) со значеним (red). <br>
+            Выглядит это вот так: <br>
+            <br>
+            <em>css</em><br>
+            <b>p { color: red }</b><br>
+            <br>
+            И соответственно текст стал красным. <br>
+            Следует отметить, что селекторы по названию тега это селекторы с самым низким приоритетом.
+        </p>
+        <h2>
+            Рассмотрим поведение селектора по названию класа.
+        </h2>
+        <p class="blue_text">
+            Для написания этого абзаца сново используем тег (р) с ранее примененным стилем ( p { color: red; }) <br>
+            <br> 
+            Присвоив тегу (р) селектор (class="blue_text"), мы изменили цвет текста на синий. <br>
+            Выглядит это вот так: <br>
+            <br>
+            <em>html</em><br>
+            <b>< p class="blue_text">....< /p> </b><br>
+            <br>
+            <em>css</em>><br>
+            p { color: red }<br>
+            <b>.blue_text { color: blue; } </b><br>
+            <br>
+            Текст стал синим, потому что приоритет (вес) селектора по названию класа (class) выше приоритета селектора по названию тега (tag).
+        </p>
+        <h2>
+            Рассмотрим поведение селекторов по id. 
+        </h2>
+        <p class="blue_text" id="green_text">
+            Сново тег (р) со всеми ранее примененными стилями.<br>
+            <br>
+            Присваиваем тегу (р) еще один селектор (id="green_text").<br>
+            <br>
+            <em>html</em><br>
+            < p class="color_blue" <b>id=green_text"</b>>....< /p> <br>
+            <br>
+            <em>css</em><br>
+            p { color: red } <br>
+            .blue_text { color: blue; } <br>
+            <b>#green_text { color: green; } </b><br>
+            <br>
+            И цвет текста меняется на зеленый. <br>
+            Принцип тот же. Применяется свойство того селектора, чей приоритет (вес) больше. <br>
+            Приоритет селектора по id > class > tag
+        </p>
+        <h2>
+            Рассмотрим поведение селекторов inline.
+        </h2>
+        <p class="blue_text" id="green_text" style=" color:rgb(118, 170, 170); ">
+            Сново тег (р). <br>
+            Ранее примененные стили используются. И как видим цвет текста сново изменился. <br>
+            Это было сделано путем присвоения селектора inline. <br>
+            Этот селектор присваивается тегу в качестве атрибуа style="", без обращения к css. <br>
+            <br>
+            <em>html</em><br>
+            < p class="blue_text" id="green_text" <b>style=" color:rgb(118, 170, 170); "</b> > <br>
+            <br>
+            И соответственно цвет стал мятным, потому что приоритет (вес) селектора inline выше чем у остальных.
+            <br>
+        </p>        
+        <h2>
+            Рассмотрим поведение селектора !important.
+        </h2>
+        <p class="text_dark_red blue_text" id="green_text" style="color:rgb(118, 170, 170);">
+            Сново тег (р). <br>
+            Все ранее примененные стили так же используются. <br>
+            <br>
+            Отличительная особенность селектора important в том, что он не задает новый стиль с более высоким приеритетом, <br>
+            он устанавливает самый высокий приоритет для стилей любого другого селектора, при этом совершенно не важно какой у него (вес).<br>
+            <br>
+            Посмотрим как это работает. <br>
+            <br>
+            Создаем новый селектор класа .text_dark_red со свойством и занчением { color: red !important; } и присваеваем его тегу (р)<br>
+            <br>
+            <em>css</em><br>
+            p { color: red }<br>
+            .blue_text { color: blue; }<br>
+            #green_text { color: green; }<br>
+            <b>.text_dark_red color: red !important;</b><br>
+            <br>
+            <em>html</em><br>
+            < p class="<b>text_dark_red</b> blue_text" id="green_text" style="color:rgb(118, 170, 170); "> <br>
+            <br>
+            Как видим текст стал темно-красным. <br>
+            Не смотря на то что у тега (р) есть селекторы по id и inline селекторы, к нему всеровно применились стили селектора класа.  <br>
+        </p>
+        <h2>
+            Рассмотрим пример использования нескольких класов.
+        </h2>
+        <p>
+        К любому елементу можно применить несколько класов, пречисляя их в атрибуте class через пробел. <br>
+        Подобное применение используется в примере выше. <br>
+        < p <b>class="text_dark_red blue_text"</b> id="green_text" style="color:rgb(118, 170, 170); "> <br>
+        По скольку оба класса имеют одинаковые стилевые свойства, применятся значения свойств того класса, который стоит последний в очереди, или того у кого выше приоритет. <br>   
+        В нашем случаи применились свойства класса text_dark_red.<br>
+        Все дело в том что у класса text_dark_red выше приоритет, так как к нему применен селектор !important.
+        <br>
+        Посмотрим подробнее как это работает. <br>
+        <br>
+        Создаем несколько новых классов и пропишем для них стили. <br>
+        <br>
+        <em>css</em> <br>
+        <b>.class_bold { font-weight: 700; font-size: 22px; }<br>
+        .class_italik { font-style: italic; font-size: 18px; } <br>
+        .class_lite {} font-weight: 100; color: green; }</b> <br> 
+        <br>
+        Создаем (р), применяем к нему class_bold и style="color: black" (а то красный както вооще не читается), и пишем произвольный текст. <br>
+        Выглядит это вот так. <br>
+        <br>
+        <em>html</em><br>
+        <b>< p class="class_bold" style="color: black"> .... < /p></b><br>
+        <br>
+        Вот что получилось. 
+        </p>
+        <p class="class_bold" style="color: black">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ut cumque iste omnis non necessitatibus, voluptas recusandae ab sit qui ad accusamus porro. Nesciunt exercitationem aliquam cupiditate debitis inventore beatae deserunt, impedit excepturi atque, minima maiores nulla, placeat rerum enim.
+        </p>
+        <p style="color: black">
+            Как видим текст стал черным, жирным и изменился его размер (22 рх). Стили применились. <br>
+            <br>
+            Подключаем еще один класс. <br>
+            <br>
+            <em>html</em><br>
+            < p class="class_bold <b>class_italik</b>" style="color: black"> .... < /p><br>
+            <br>
+            Вот что получилось. <br>
+        </p>
+        <p class="class_bold class_italik" style="color: black">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ut cumque iste omnis non necessitatibus, voluptas recusandae ab sit qui ad accusamus porro. Nesciunt exercitationem aliquam cupiditate debitis inventore beatae deserunt, impedit excepturi atque, minima maiores nulla, placeat rerum enim.
+        </p>
+        <p style="color: black">
+            Как видим изменилось начертание текста (он стал курсивным), и изменился его размер (18 рх), можно считать что стили класса class_italik полностью применились. <br>
+            Но свойство font-weight: 700 (жирный текст) который был задан классом class_bold, по прежнему работает. <br>
+            Все потому что у класса class_italik нету свойства font-weight которое бы заменило это свойство у класса class_bold. <br>
+            Вообщем, думаю принцып понятен.
+        </p>
+        <p style="color: black">
+            Подключаем еще один класс.
+            <br>
+            <em>html</em><br>
+            < p class="class_bold class_italik <b>class_lite</b>" style="color: black"> .... < /p><br>
+            <br>
+            Вот что получилось. <br>
+        </p>
+        <p class="class_bold class_italik class_lite" style="color: black">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ut cumque iste omnis non necessitatibus, voluptas recusandae ab sit qui ad accusamus porro. Nesciunt exercitationem aliquam cupiditate debitis inventore beatae deserunt, impedit excepturi atque, minima maiores nulla, placeat rerum enim.
+        </p>
+        <p style="color: black">
+            Как видим некоторые свойства класса class_lite применились а некоторые нет. <br>
+            Применилось свойство (font-weight: 100), он стал тонким. <br>
+            Но свойство (color: green;) все же не применилось. <br>
+            Все потому что черный цвет текста задан inline селектором, а приоритет inline селекторов выше чем у селекторов по классам.
+        </p>
+        <h2>
+            А теперь рассмотрим пример вложенных селекторов.
+        </h2>
+        <p style="color: black"> 
+            Создаем (р) параграф с текстом. Создаем в нем несколько ссылок. И еще одну ссылку вне параграфа.<br>
+            Тегу (р) присваиваем класс text_random, а всем ссылкам класс link. <br>
+            Классу link говорим что он должен быть font-size: 22px. <br>
+            Выглядит это вот так.<br>
+            <br>
+            <em>html</em><br>
+            < p class="text_random">....text....< a href="#" class="link">..Link 1..< /a>...text...< a href="#" class="link">...Link 2...< /a>...< /p> <br>
+            < a href="#" class="link">..Link 3...< /a> <br>
+            <br>
+            <em>css - шаг 1</em><br>
+            .link { font-size: 22px; }<br>
+            <br>
+            <em>css - шаг 2</em><br>
+            .text_random .link { font-size: 18px; } <br>
+            <br>
+            И вот что получилось.
+        </p>
+        <p class="text_random" style="color: black">
+            Lorem ipsum <a href="#" class="link">Provident ratione et</a> dolor sit amet consectetur adipisicing elit. Illo facilis id molestiae sit porro nihil blanditiis obcaecati, adipisci exercitationem recusandae! <a href="#" class="link">Provident ratione et</a> consequuntur laboriosam quasi qui possimus laborum neque laudantium? Corporis voluptates repellat minima aspernatur cumque error accusamus dolorum hic deserunt dolorem impedit ullam soluta, molestias atque temporibus fuga!
+        </p>
+        <a href="#" class="link">ossimus labor</a>
+        <p style="color: black">
+            Как видим размер ссылок в параграфе - 18рх, а размер ссылки после параграфа - 22рх. <br>
+            Хотя всем трем ссылкам присвоен одинаковый класс - class="link". <br>
+            <br>
+            Вот как следует понимать селектор .text_random .link { font-size: 18px; } <br>
+            <br>
+            Ко всем елементам с калссом .link которые расположенны в елементах с калссом .text_random применяем font-size: 18px; <br>
+            Вот и все. <br>
+            Именно так работают селекторы по вложенности. <br> 
+            <br>
+        </p>
     </body>
 </html>

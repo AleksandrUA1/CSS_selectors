@@ -1,7 +1,43 @@
 .table {
-    border: 2px;
-    
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #bcbcc0;
+    padding: 10px 15px;
+}
+
+.bold {
+    font-weight: 700;
 }
 p {
     color: red;
+}
+
+.blue_text {
+    color: blue;
+}
+
+#green_text {
+    color: green;
+}
+.text_dark_red {
+    color: rgb(168, 37, 54) !important;
+}
+.class_bold {
+    font-weight: 700;
+    font-size: 22px;
+}
+.class_italik {
+    font-style: italic;
+    font-size: 18px;
+}
+.class_lite {
+    font-weight: 100;
+    color: green;
+}
+.link {
+    font-size: 22px;
+}
+.text_random .link {
+    font-size: 18px;
 }
